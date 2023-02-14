@@ -1,0 +1,23 @@
+- hosts: localhost
+  collections:
+    - community.general
+  vars_files:
+      - mysecret1.yml
+  tasks:
+  - name: this is for the hostname mail
+    command: "ansible all --list"
+    register: configured
+
+  - name: Display Hostname
+    debug:
+      var: configured.stdout_lines[1]
+
+  - name: Sending an e-mail using Gmail SMTP servers
+    community.general.mail:
+      host: smtp.gmail.com
+      port: 587
+      username: "{{username}}"
+      password: "{{password}}"
+      to: yogeshkumar12t@gmail.com
+      subject: Mail testing
+      body: System "{{configured.stdout_lines[1]}}" has been successfully provisioned and website is deployed

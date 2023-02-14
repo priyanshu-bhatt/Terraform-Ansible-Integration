@@ -1,0 +1,51 @@
+- hosts: all
+  vars:
+    #
+  become: yes
+  vars_files:
+    - ansible_variable.yml
+  tasks:
+  - name: "This is httpd"
+    register: x
+    package:
+       name: "{{software}}"
+       state: installed
+    when: ansible_os_family == "RedHat"
+
+  - debug:
+      msg: "{{x}}"
+
+  - name: "This is for index.html"
+    template:
+       dest: "/var/www/html/"
+       src: "{{file}}"
+    when: ansible_os_family == "RedHat"
+
+  - name: "This is for configuration port"
+    template:
+       dest: "/etc/httpd/conf.d/"
+       src: "{{conf_file}}"
+    when: ansible_os_family == "RedHat"
+    notify: "This is for restart"
+
+  - name: "This is for enabling"
+    service:
+       name: "{{software}}"
+       state: started
+       enabled: yes
+    when: ansible_os_family == "RedHat"
+
+  - name: "This is for testing web"
+    uri:
+       url: "http://13.234.116.62:1234/"
+    register: test
+
+  - debug:
+      msg: "Testing is succesfull"
+    when: test.status == 200
+
+  handlers:
+  - name: "This is for restart"
+    service:
+       name: "{{software}}"
+       state: restarted

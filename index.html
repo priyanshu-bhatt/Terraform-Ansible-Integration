@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1> Hello My Name is <span id="name">{{name}}</span> <br> This is my Terraform ansible integration.</h1>
+    <h3> Operation's done using jina format in backend</h3>
+    <div> {% for i in [1,2,3,4,5]%}
+     {{i}}
+     {%endfor%}
+    
+     {% if 1 == 1 %}
+    some text here with an actual variable: {{  file }}
+    {% else %}
+    some other text here with nothing
+    {% endif %} 
+</div>
+</body>
+</html>
+
+
+<style>
+body{
+    margin-top: 200px;
+    background-image:url("https://img.freepik.com/free-vector/flat-comic-style-background_23-2148882944.jpg?w=2000");
+    text-align: center;
+    background-size: cover;
+    font-size: 30px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    
+ }
+ #name{
+    color:darkgreen;
+    font-style: italic;
+ }
+</style>
